@@ -5,25 +5,25 @@ package com.example.android.quakereport;
  */
 
 public class Earthquake {
-    private float mEarthquakeMagnitude;
+    private String mEarthquakeMagnitude;
     private String mLocation ;
     private String mDateOfEarthquake;
 
-    public Earthquake(float earthquakeMagnitude, String location , String dateOfEarthQuake){
+    public Earthquake(String earthquakeMagnitude, String location , String dateOfEarthQuake){
         mEarthquakeMagnitude = earthquakeMagnitude;
         mLocation = location;
         mDateOfEarthquake = dateOfEarthQuake;
     }
 
-    public float getmEarthquakeMagnitude() {
+    public String getEarthquakeMagnitude() {
         return mEarthquakeMagnitude;
     }
 
-    public String getmLocation() {
+    public String getLocation() {
         return mLocation;
     }
 
-    public String getmDateOfEarthquake() {
+    public String getDateOfEarthquake() {
         return mDateOfEarthquake;
     }
 
@@ -34,5 +34,17 @@ public class Earthquake {
                 ", mLocation='" + mLocation + '\'' +
                 ", mDateOfEarthquake='" + mDateOfEarthquake + '\'' +
                 '}';
+    }
+
+    public void setEarthquakeMagnitude(String mEarthquakeMagnitude) {
+        this.mEarthquakeMagnitude = mEarthquakeMagnitude;
+    }
+
+    public void setLocation(String mLocation) {
+        this.mLocation = mLocation;
+    }
+
+    public void setDateOfEarthquake(String mDateOfEarthquake) {
+        this.mDateOfEarthquake = mDateOfEarthquake;
     }
 }

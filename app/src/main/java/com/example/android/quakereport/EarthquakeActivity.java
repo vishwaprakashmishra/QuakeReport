@@ -40,6 +40,16 @@ public class EarthquakeActivity extends AppCompatActivity {
         earthquakes.add("Moscow");
         earthquakes.add("Rio de Janeiro");
         earthquakes.add("Paris");
+        ArrayList<Earthquake> quakes = new ArrayList<>();
+        quakes.add(new Earthquake("5.0", "San Fransisco", "24-Dec-2005"));
+        quakes.add(new Earthquake("4.0", "San Fransisco Bay Area", "24-Dec-2007"));
+        quakes.add(new Earthquake("2.9", "Redmond California", "24-sep-2005"));
+        quakes.add(new Earthquake("5.0", "San Fransisco", "24-Dec-2005"));
+        quakes.add(new Earthquake("5.0", "San Fransisco", "24-Dec-2005"));
+        quakes.add(new Earthquake("5.0", "San Fransisco", "24-Dec-2005"));
+        quakes.add(new Earthquake("5.0", "San Fransisco", "24-Dec-2005"));
+        quakes.add(new Earthquake("4.4", "New York", "24-Dec-2009898"));
+        quakes.add(new Earthquake("4.4", "New Delhi", "24-Dec-2009898"));
 
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
@@ -48,8 +58,12 @@ public class EarthquakeActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, earthquakes);
 
+
+
+        // create a new {@link EarthquakeAdapter] of Earthquake
+        EarthquakeAdapter earthquakeAdapter = new EarthquakeAdapter(this , quakes);
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
-        earthquakeListView.setAdapter(adapter);
+        earthquakeListView.setAdapter(earthquakeAdapter);
     }
 }

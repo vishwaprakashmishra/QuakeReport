@@ -1,27 +1,34 @@
 package com.example.android.quakereport;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import static android.R.attr.name;
+import static android.R.string.no;
 
 /**
  * Created by vishwa on 18/5/17.
  */
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
+    /**
+     * default constructor for EarthquakeAdapter
+     * @param context current context of the Activity
+     * @param quake ArrayList of Earthquake which contain data
+     */
     public EarthquakeAdapter(Activity context, ArrayList<Earthquake> quake){
         super(context, 0 , quake);
     }
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, @NonNull ViewGroup parent){
         // check if the existing view is being reused, otherwise inflate
         View listItemview = convertView;
         if( listItemview == null){

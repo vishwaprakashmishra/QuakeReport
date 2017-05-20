@@ -1,5 +1,7 @@
 package com.example.android.quakereport;
 
+import android.support.v4.app.NotificationCompat;
+
 /**
  * Created by vishwa on 18/5/17.
  */

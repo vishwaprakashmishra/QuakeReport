@@ -13,13 +13,9 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static android.R.attr.format24Hour;
 import static android.R.attr.name;
 import static android.R.string.no;
 
-/**
- * Created by vishwa on 18/5/17.
- */
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     /**
@@ -52,14 +48,11 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // set this text on the name TextView
         magnitudeTextview.setText( currentQuake.getEarthquakeMagnitude());
 
-        // Find the TextView in the list_item.xml layout with the ID version_number
+        // Find the TextView in the list_item.xml layout with the ID earthquake_location
         TextView locationTextView = (TextView) listItemview.findViewById(R.id.earthquake_location);
         // Get the version number from the current AndroidFlavor object and
         // set this text on the number TextView
         locationTextView.setText(currentQuake.getLocation());
-
-        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
-        TextView dateTextView = (TextView) listItemview.findViewById(R.id.earthquake_date);
 
         // Create a new Date object from the time in milliseconds of the earthquake
         Date dateObject = new Date(currentQuake.getTimeInMilliSeconds());

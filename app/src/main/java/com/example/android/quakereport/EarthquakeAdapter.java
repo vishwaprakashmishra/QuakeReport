@@ -1,6 +1,7 @@
 package com.example.android.quakereport;
 
 import android.app.Activity;
+import android.icu.text.SimpleDateFormat;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static android.R.attr.format24Hour;
 import static android.R.attr.name;
@@ -82,5 +84,20 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // so that it can be shown in the ListView
         return listItemview;
 
+    }
+    /**
+     * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
+     */
+    private String formatDate(Date dateObject) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
+        return dateFormat.format(dateObject);
+    }
+
+    /**
+     * Return the formatted date string (i.e. "4:30 PM") from a Date object.
+     */
+    private String formatTime(Date dateObject) {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        return timeFormat.format(dateObject);
     }
 }

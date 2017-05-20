@@ -32,16 +32,26 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         ArrayList<Earthquake> quakes = new ArrayList<>();
-        quakes.add(new Earthquake("5.0", "San Fransisco", "24-Dec-2005"));
-        quakes.add(new Earthquake("4.0", "San Fransisco Bay Area", "24-Dec-2007"));
-        quakes.add(new Earthquake("2.9", "Redmond California", "24-sep-2005"));
-        quakes.add(new Earthquake("5.0", "San Fransisco", "24-Dec-2005"));
-        quakes.add(new Earthquake("5.0", "San Fransisco", "24-Dec-2005"));
-        quakes.add(new Earthquake("5.0", "San Fransisco", "24-Dec-2005"));
-        quakes.add(new Earthquake("5.0", "San Fransisco", "24-Dec-2005"));
-        quakes.add(new Earthquake("4.4", "New York", "24-Dec-2009898"));
-        quakes.add(new Earthquake("4.4", "New Delhi", "24-Dec-2009898"));
-
+        quakes.add(new Earthquake("7.2", "88km N of Yelizovo, Russia"
+                , "1454124312220"));
+        quakes.add(new Earthquake("6.1", "94km SSE of Taron, Papua New Guinea",
+                "1453777820750"));
+        quakes.add(new Earthquake("6.3", "50km NNE of Al Hoceima, Morroco",
+                "1453695722788032"));
+        quakes.add(new Earthquake("7.1", "86km E of Old Iliamna, Alaska",
+                "1486511256806"));
+        quakes.add(new Earthquake("6.6", "215km SW of Tomatlan, Mexico",
+                "1453399617650"));
+        quakes.add(new Earthquake("6.7", "52km SE of Shizunai, Japan",
+                "1452741933640"));
+        quakes.add(new Earthquake("6.1", "12km WNW of Charagua, Bolivia",
+                "1452741928270"));
+        quakes.add(new Earthquake("6.2", "74km NW of Rumoi, Japan",
+                "1452532083920"));
+        quakes.add(new Earthquake("6.5", "227km SE of Sarangani, Philippines",
+                "1452530285900"));
+        quakes.add(new Earthquake("6", "Pacific-Antarctic Ridge",
+                "1451986454620"));
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
         

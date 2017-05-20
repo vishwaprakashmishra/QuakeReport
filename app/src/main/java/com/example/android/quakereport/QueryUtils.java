@@ -48,26 +48,26 @@ public final class QueryUtils {
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
-            JSONObject geoData = new JSONObject(SAMPLE_JSON_RESPONSE);
-            JSONArray featuresData = geoData.getJSONArray("features");
+            JSONObject baseJsonResponse = new JSONObject(SAMPLE_JSON_RESPONSE);
+            JSONArray earthquakeArray = baseJsonResponse.getJSONArray("features");
 
             // traversing the JSONArray featuresData
-            for (int i = 0 ; i < featuresData.length(); i++){
+            for (int i = 0 ; i < earthquakeArray.length(); i++){
                 // extracting properties element from "features" {@link JSONArray}
-                JSONObject propertiesData = featuresData.getJSONObject(i );
+                JSONObject currentEarthquake  = earthquakeArray.getJSONObject(i);
+                JSONObject properties = currentEarthquake.getJSONObject("properties");
+
                 // parsing magnitude information from properties data
-                double magnitude = propertiesData.getDouble("mag");
-                // parsing place information from properties data
-                String place  = propertiesData.getString("place");
-                // parsing time information from properties data
-                long time = propertiesData.getLong("time");
-                // converting the {@link double} magnitude to {@link String}
-                // converting the {@link long} time to {@link String }
-                String magString , timeString ;
-                magString = magnitude + "";
-                timeString = time + "";
-                // adding earthquakes element which is Earthquake
-                earthquakes.add(new Earthquake(magString,place,timeString));
+                String magnitude = properties.getString("mag");
+                Log.i("QueryUtil",magnitude);
+                String place = properties.getString("place");
+                Log.i("QueryUtil", place);
+                String time = properties.getString("time");
+                Log.i("QueryUtil", time );
+                // creting earthquake variable
+                Earthquake earthquake = new Earthquake(magnitude, place , time ) ;
+                // adding earthquake object to the earthquakes ArrayList
+                earthquakes.add(earthquake);
             }
 
             // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and

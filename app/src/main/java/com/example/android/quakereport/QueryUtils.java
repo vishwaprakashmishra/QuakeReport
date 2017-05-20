@@ -57,15 +57,13 @@ public final class QueryUtils {
                 JSONObject currentEarthquake  = earthquakeArray.getJSONObject(i);
                 JSONObject properties = currentEarthquake.getJSONObject("properties");
 
-                // parsing magnitude information from properties data
                 String magnitude = properties.getString("mag");
-                Log.i("QueryUtil",magnitude);
                 String place = properties.getString("place");
-                Log.i("QueryUtil", place);
-                String time = properties.getString("time");
-                Log.i("QueryUtil", time );
-                // creting earthquake variable
-                Earthquake earthquake = new Earthquake(magnitude, place , time ) ;
+                Long time = properties.getLong("time");
+
+
+                // creating earthquake variable
+                Earthquake earthquake = new Earthquake(magnitude, place , time );
                 // adding earthquake object to the earthquakes ArrayList
                 earthquakes.add(earthquake);
             }
@@ -83,5 +81,4 @@ public final class QueryUtils {
         // Return the list of earthquakes
         return earthquakes;
     }
-
 }

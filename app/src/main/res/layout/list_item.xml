@@ -20,10 +20,23 @@
         android:layout_weight="3"
         tools:text="New York" />
 
-    <TextView
-        android:id="@+id/earthquake_date"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        tools:text="23-Aug-2014" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="23-Aug-2014" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="14:23" />
+    </LinearLayout>
+
 </LinearLayout>

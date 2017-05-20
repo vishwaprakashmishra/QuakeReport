@@ -7,12 +7,18 @@ package com.example.android.quakereport;
 public class Earthquake {
     private String mEarthquakeMagnitude;
     private String mLocation ;
-    private String mDateOfEarthquake;
+    private Long timeInMilliSeconds;
 
-    public Earthquake(String earthquakeMagnitude, String location , String dateOfEarthQuake){
+    /**
+     *  constructor
+     * @param earthquakeMagnitude earthquake magnitude
+     * @param location  location of earthquake
+     * @param timeInMilliSeconds time in millisecond in UNIX format
+     */
+    public Earthquake(String earthquakeMagnitude, String location , Long timeInMilliSeconds){
         mEarthquakeMagnitude = earthquakeMagnitude;
         mLocation = location;
-        mDateOfEarthquake = dateOfEarthQuake;
+        this.timeInMilliSeconds  = timeInMilliSeconds;
     }
 
     public String getEarthquakeMagnitude() {
@@ -23,8 +29,8 @@ public class Earthquake {
         return mLocation;
     }
 
-    public String getDateOfEarthquake() {
-        return mDateOfEarthquake;
+    public Long getTimeInMilliSeconds() {
+        return timeInMilliSeconds;
     }
 
     @Override
@@ -32,19 +38,7 @@ public class Earthquake {
         return "Earthquake{" +
                 "mEarthquakeMagnitude=" + mEarthquakeMagnitude +
                 ", mLocation='" + mLocation + '\'' +
-                ", mDateOfEarthquake='" + mDateOfEarthquake + '\'' +
+                ", mDateOfEarthquake='" + timeInMilliSeconds + '\'' +
                 '}';
-    }
-
-    public void setEarthquakeMagnitude(String mEarthquakeMagnitude) {
-        this.mEarthquakeMagnitude = mEarthquakeMagnitude;
-    }
-
-    public void setLocation(String mLocation) {
-        this.mLocation = mLocation;
-    }
-
-    public void setDateOfEarthquake(String mDateOfEarthquake) {
-        this.mDateOfEarthquake = mDateOfEarthquake;
     }
 }

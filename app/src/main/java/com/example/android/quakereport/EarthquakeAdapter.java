@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
+import static android.R.attr.format24Hour;
 import static android.R.attr.name;
 import static android.R.string.no;
 
@@ -56,9 +58,24 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
         TextView dateTextView = (TextView) listItemview.findViewById(R.id.earthquake_date);
-        // Get the image resource ID from the current AndroidFlavor object and
-        // set the image to iconView
-        dateTextView.setText( currentQuake.getDateOfEarthquake());
+
+        // Create a new Date object from the time in milliseconds of the earthquake
+        Date dateObject = new Date(currentQuake.getTimeInMilliSeconds());
+
+        // Find the TextView with view ID date
+        TextView dateView = (TextView) listItemview.findViewById(R.id.date);
+        // Format the date string (i.e. "Mar 3, 1984")
+        String formattedDate = formatDate(dateObject);
+        // Display the date of the current earthquake in that TextView
+        dateView.setText(formattedDate);
+
+        // Find the TextView with view ID time
+        TextView timeView = (TextView) listItemview.findViewById(R.id.time);
+        // Format the time string (i.e. "4:30PM")
+        String formattedTime = formatTime(dateObject);
+        // Display the time of the current earthquake in that TextView
+        timeView.setText(formattedTime);
+
 
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)

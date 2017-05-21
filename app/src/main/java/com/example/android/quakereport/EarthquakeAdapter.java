@@ -15,6 +15,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
+    private static final String LOCATION_SEPERATOR = " of ";
     /**
      * default constructor for EarthquakeAdapter
      * @param context current context of the Activity
@@ -46,26 +47,35 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         magnitudeTextview.setText( currentQuake.getEarthquakeMagnitude());
 
         // getting the location string ;
+        String locationString , offsetToLocation;
         String location = currentQuake.getLocation();
-        String reg = " of ";
         String[] locationArray = new String[2];
-        if( location.contains(reg)){
-            locationArray = location.split(reg);
-            locationArray[0] += " of";
+        if( location.contains(LOCATION_SEPERATOR)){
+            // Split the string into different parts ( as an array of string )
+            // based on the " of " text , We expect an array of 2 string
+            // the first String will be "5km N " and the second String location
+            locationArray = location.split(LOCATION_SEPERATOR);
+            // Location offset should be "5km N" + " of " --> "5km N of "
+            offsetToLocation = locationArray[0] + LOCATION_SEPERATOR;
+            // primary Location should be "Cairo, Egypt"
+            locationString = locationArray[1];
         } else {
-            locationArray[0] = "near the";
-            locationArray[1] = location;
+            // Otherwise , there is no " of " text in the original location
+            // Hence , set the default location offset to say "Near
+            offsetToLocation = getContext().getString(R.string.near_the);
+            // The primary location will be the full location string
+            locationString = location;
         }
 
         // Find the TextView in the list_item.xml layout with the ID earthquake_location
         TextView offsetTextView = (TextView) listItemview.findViewById(R.id.offset);
         // Get the version number from the current AndroidFlavor object and
         // set this text on the number TextView
-        offsetTextView.setText(locationArray[0]);
+        offsetTextView.setText(offsetToLocation);
         // Find the TextView of location
         TextView locationTextView = (TextView ) listItemview.findViewById(R.id.location);
         // set location text on the text view
-        locationTextView.setText(locationArray[1]);
+        locationTextView.setText(locationString);
 
         // Create a new Date object from the time in milliseconds of the earthquake
         Date dateObject = new Date(currentQuake.getTimeInMilliSeconds());

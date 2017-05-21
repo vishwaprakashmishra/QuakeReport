@@ -9,13 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Locale;
-
-import static android.R.attr.name;
-import static android.R.string.no;
-
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     /**
@@ -48,11 +45,27 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // set this text on the name TextView
         magnitudeTextview.setText( currentQuake.getEarthquakeMagnitude());
 
+        // getting the location string ;
+        String location = currentQuake.getLocation();
+        String reg = " of ";
+        String[] locationArray = new String[2];
+        if( location.contains(reg)){
+            locationArray = location.split(reg);
+            locationArray[0] += " of";
+        } else {
+            locationArray[0] = "near the";
+            locationArray[1] = location;
+        }
+
         // Find the TextView in the list_item.xml layout with the ID earthquake_location
-        TextView locationTextView = (TextView) listItemview.findViewById(R.id.earthquake_location);
+        TextView offsetTextView = (TextView) listItemview.findViewById(R.id.offset);
         // Get the version number from the current AndroidFlavor object and
         // set this text on the number TextView
-        locationTextView.setText(currentQuake.getLocation());
+        offsetTextView.setText(locationArray[0]);
+        // Find the TextView of location
+        TextView locationTextView = (TextView ) listItemview.findViewById(R.id.location);
+        // set location text on the text view
+        locationTextView.setText(locationArray[1]);
 
         // Create a new Date object from the time in milliseconds of the earthquake
         Date dateObject = new Date(currentQuake.getTimeInMilliSeconds());

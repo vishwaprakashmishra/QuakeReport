@@ -48,13 +48,19 @@ public final class QueryUtils {
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
+            // Create a JSONObject from the SAMPLE_JSON_RESPONSE string
             JSONObject baseJsonResponse = new JSONObject(SAMPLE_JSON_RESPONSE);
+
+            // Extract the JSONaRRAY associated with the key called "features",
+            // which represents a list of features (or earthquakes).
             JSONArray earthquakeArray = baseJsonResponse.getJSONArray("features");
 
             // traversing the JSONArray featuresData
             for (int i = 0 ; i < earthquakeArray.length(); i++){
                 // extracting properties element from "features" {@link JSONArray}
                 JSONObject currentEarthquake  = earthquakeArray.getJSONObject(i);
+
+                // extracting properties from the current earthquake element
                 JSONObject properties = currentEarthquake.getJSONObject("properties");
 
                 String magnitude = properties.getString("mag");

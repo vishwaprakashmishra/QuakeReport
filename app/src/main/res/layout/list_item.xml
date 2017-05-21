@@ -13,12 +13,23 @@
         android:layout_weight="1"
         tools:text="5.0" />
 
-    <TextView
-        android:id="@+id/earthquake_location"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_weight="3"
-        tools:text="New York" />
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/offset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="New York" />
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/app_name"/>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="0dp"

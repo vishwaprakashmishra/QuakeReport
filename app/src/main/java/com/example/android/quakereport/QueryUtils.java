@@ -63,7 +63,7 @@ public final class QueryUtils {
                 // extracting properties from the current earthquake element
                 JSONObject properties = currentEarthquake.getJSONObject("properties");
 
-                String magnitude = properties.getString("mag");
+                Double magnitude = properties.getDouble("mag");
                 String place = properties.getString("place");
                 Long time = properties.getLong("time");
 
@@ -74,7 +74,6 @@ public final class QueryUtils {
                 earthquakes.add(earthquake);
             }
 
-            // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and
             // build up a list of Earthquake objects with the corresponding data.
 
         } catch (JSONException e) {

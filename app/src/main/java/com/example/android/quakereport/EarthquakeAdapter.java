@@ -1,6 +1,8 @@
 package com.example.android.quakereport;
 
 import android.app.Activity;
+;
+import android.icu.text.DecimalFormat;
 import android.icu.text.SimpleDateFormat;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -28,9 +30,9 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent){
         // check if the existing view is being reused, otherwise inflate
-        View listItemview = convertView;
-        if( listItemview == null){
-            listItemview = LayoutInflater.from(getContext()).inflate(R.layout.list_item
+        View listItemView = convertView;
+        if( listItemView == null){
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item
             , parent, false );
 
         }
@@ -39,12 +41,13 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // after getting the currentQuake
         // we can change the view of the current quake
 
-        // Find the Text view in the list_item
-        // with earthquake_magnitude
-        TextView magnitudeTextview = (TextView) listItemview.findViewById(R.id.earthquake_magnitude);
-        // Get the version name from the current AndroidFlavor object and
-        // set this text on the name TextView
-        magnitudeTextview.setText( currentQuake.getEarthquakeMagnitude());
+        // Find the TextView with view ID magnitude
+        TextView magnitudeView = (TextView) listItemView.findViewById(R.id.magnitude);
+        // Format the magnitude to show 1 decimal place
+        String formattedMagnitude = formatMagnitude(currentQuake.getEarthquakeMagnitude());
+        // Display the magnitude of the current earthquake in that TextView
+        magnitudeView.setText(formattedMagnitude);
+
 
         // getting the location string ;
         String locationString , offsetToLocation;
@@ -68,12 +71,12 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         }
 
         // Find the TextView in the list_item.xml layout with the ID earthquake_location
-        TextView offsetTextView = (TextView) listItemview.findViewById(R.id.offset);
+        TextView offsetTextView = (TextView) listItemView.findViewById(R.id.offset);
         // Get the version number from the current AndroidFlavor object and
         // set this text on the number TextView
         offsetTextView.setText(offsetToLocation);
         // Find the TextView of location
-        TextView locationTextView = (TextView ) listItemview.findViewById(R.id.location);
+        TextView locationTextView = (TextView ) listItemView.findViewById(R.id.location);
         // set location text on the text view
         locationTextView.setText(locationString);
 
@@ -81,14 +84,14 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         Date dateObject = new Date(currentQuake.getTimeInMilliSeconds());
 
         // Find the TextView with view ID date
-        TextView dateView = (TextView) listItemview.findViewById(R.id.date);
+        TextView dateView = (TextView) listItemView.findViewById(R.id.date);
         // Format the date string (i.e. "Mar 3, 1984")
         String formattedDate = formatDate(dateObject);
         // Display the date of the current earthquake in that TextView
         dateView.setText(formattedDate);
 
         // Find the TextView with view ID time
-        TextView timeView = (TextView) listItemview.findViewById(R.id.time);
+        TextView timeView = (TextView) listItemView.findViewById(R.id.time);
         // Format the time string (i.e. "4:30PM")
         String formattedTime = formatTime(dateObject);
         // Display the time of the current earthquake in that TextView
@@ -98,7 +101,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView
-        return listItemview;
+        return listItemView;
 
     }
     /**
@@ -115,5 +118,9 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     private String formatTime(Date dateObject) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
         return timeFormat.format(dateObject);
+    }
+    private String formatMagnitude(double magnitude) {
+        DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
+        return magnitudeFormat.format(magnitude);
     }
 }

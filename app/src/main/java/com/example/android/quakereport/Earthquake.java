@@ -7,7 +7,7 @@ import android.support.v4.app.NotificationCompat;
  */
 
 public class Earthquake {
-    private String mEarthquakeMagnitude;
+    private Double mEarthquakeMagnitude;
     private String mLocation ;
     private Long timeInMilliSeconds;
 
@@ -17,13 +17,13 @@ public class Earthquake {
      * @param location  location of earthquake
      * @param timeInMilliSeconds time in millisecond in UNIX format
      */
-    public Earthquake(String earthquakeMagnitude, String location , Long timeInMilliSeconds){
+    public Earthquake(Double earthquakeMagnitude, String location , Long timeInMilliSeconds){
         mEarthquakeMagnitude = earthquakeMagnitude;
         mLocation = location;
         this.timeInMilliSeconds  = timeInMilliSeconds;
     }
 
-    public String getEarthquakeMagnitude() {
+    public Double getEarthquakeMagnitude() {
         return mEarthquakeMagnitude;
     }
 

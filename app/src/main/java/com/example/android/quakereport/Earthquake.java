@@ -10,6 +10,7 @@ public class Earthquake {
     private Double mEarthquakeMagnitude;
     private String mLocation ;
     private Long timeInMilliSeconds;
+    private String url ;
 
     /**
      *  constructor
@@ -17,10 +18,11 @@ public class Earthquake {
      * @param location  location of earthquake
      * @param timeInMilliSeconds time in millisecond in UNIX format
      */
-    public Earthquake(Double earthquakeMagnitude, String location , Long timeInMilliSeconds){
+    public Earthquake(Double earthquakeMagnitude, String location , Long timeInMilliSeconds, String url ){
         mEarthquakeMagnitude = earthquakeMagnitude;
         mLocation = location;
         this.timeInMilliSeconds  = timeInMilliSeconds;
+        this.url = url;
     }
 
     public Double getEarthquakeMagnitude() {
@@ -35,6 +37,9 @@ public class Earthquake {
         return timeInMilliSeconds;
     }
 
+    public String getUrl(){
+        return url;
+    }
     @Override
     public String toString() {
         return "Earthquake{" +

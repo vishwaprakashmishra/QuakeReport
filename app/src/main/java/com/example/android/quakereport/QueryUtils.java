@@ -189,6 +189,8 @@ public final class QueryUtils {
         // Create URL object
         URL url = createURL(requestUrl);
 
+        // Loging message for debugging
+        Log.i(LOG_TAG, "in fetchEarthquakeData and EXECUTING ... ");
         // Perform HTTP REQUEST TO THE URL and rceive a JSON response back
         String jsonResponse = null;
         try{

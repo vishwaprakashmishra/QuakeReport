@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -30,7 +31,6 @@ import android.content.Loader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.data;
 
 public class EarthquakeActivity extends AppCompatActivity
         implements LoaderCallbacks<List<Earthquake> > {
@@ -47,30 +47,11 @@ public class EarthquakeActivity extends AppCompatActivity
     private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=5&limit=10";
     private EarthquakeAdapter mAdapter;
 
-    @Override
-    public Loader<List<Earthquake> > onCreateLoader(int i, Bundle bundle) {
-        // Create a new loader for the given URL
-        return new EarthquakeLoader(this, USGS_REQUEST_URL);
-    }
 
-    @Override
-    public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
-        // Clear the adapter of previous earthquake data
-        mAdapter.clear();
-
-        // If there is a valid list of {@link Earthquake}s , then add them to the adapters.
-        // data set. This will trigger the ListView to update.
-
-        if ( earthquakes != null && !earthquakes.isEmpty()) {
-            mAdapter.addAll(earthquakes );
-        }
-    }
-
-
-    @Override public void onLoaderReset(Loader<List<Earthquake>> loader) {
-        // Loader reset, so we can clear out our existing data.
-        mAdapter.clear();
-    }
+    /**
+     * This method used while starting the class as the name suggest
+     * @param savedInstanceState it is saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +92,44 @@ public class EarthquakeActivity extends AppCompatActivity
         // Get a reference to the LoaderManager, in order to interact
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+    }
+
+    /**
+     * this callback function is implementation of LoaderManager.LoaderCallback interface
+     * used when loader is Initialized
+     * @param i is the loader index
+     * @param bundle bundle is context
+     * @return returns EarthquakeLoader
+     */
+    @Override
+    public Loader<List<Earthquake> > onCreateLoader(int i, Bundle bundle) {
+        // Create a new loader for the given URL
+        Log.i(LOG_TAG, "in onCreateLoader");
+        return new EarthquakeLoader(this, USGS_REQUEST_URL);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+
+        Log.i(LOG_TAG, "IN onLoadFinished and EXECUTING");
+        // Clear the adapter of previous eart
+        // hquake data
+        mAdapter.clear();
+
+        // If there is a valid list of {@link Earthquake}s , then add them to the adapters.
+        // data set. This will trigger the ListView to update.
+
+        if ( earthquakes != null && !earthquakes.isEmpty()) {
+            mAdapter.addAll(earthquakes );
+        }
+    }
+
+
+    @Override
+    public void onLoaderReset(Loader<List<Earthquake>> loader) {
+        Log.i(LOG_TAG, "in onLoaderReset and EXECUTING");
+        // Loader reset, so we can clear out our existing data.
+        mAdapter.clear();
     }
 
 }

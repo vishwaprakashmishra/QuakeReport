@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -27,6 +28,8 @@ public class EarthquakeActivity extends AppCompatActivity
     private static final int EARTHQUAKE_LOADER_ID = 1;
     /** TextView that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
+    /**  Loading spinner */
+    private ProgressBar loadingSpinnerView;
     /**
      * tag for log message
      */
@@ -54,7 +57,8 @@ public class EarthquakeActivity extends AppCompatActivity
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(mAdapter);
-
+        // Progress bar initialization
+        loadingSpinnerView = (ProgressBar) findViewById(R.id.loading_spinner);
         //
         mEmptyStateTextView = (TextView) findViewById(R.id.emptyText);
         earthquakeListView.setEmptyView(mEmptyStateTextView);
@@ -102,11 +106,9 @@ public class EarthquakeActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
 
-        // Set empty state text to display  "No earthquke found"
-        mEmptyStateTextView.setText(R.string.no_earthquake);
+        loadingSpinnerView.setVisibility(View.GONE);
         Log.i(LOG_TAG, "IN onLoadFinished and EXECUTING");
-        // Clear the adapter of previous eart
-        // hquake data
+        // Clear the adapter of previous earthquake data
         mAdapter.clear();
 
         // If there is a valid list of {@link Earthquake}s , then add them to the adapters.
@@ -114,9 +116,10 @@ public class EarthquakeActivity extends AppCompatActivity
 
         if ( earthquakes != null && !earthquakes.isEmpty()) {
             mAdapter.addAll(earthquakes );
+        } else { // else displaying the message R.string.no_earthquake
+            mEmptyStateTextView.setText(R.string.no_earthquake);
         }
     }
-
 
     @Override
     public void onLoaderReset(Loader<List<Earthquake>> loader) {

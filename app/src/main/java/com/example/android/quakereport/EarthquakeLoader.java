@@ -46,7 +46,8 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake> > {
             return null;
         }
         // Perform network request parse the response and return the result
-        List<Earthquake> result = QueryUtils.fetchEarthquakeData(loadUrl);
+        List<Earthquake> result = null;
+        result = QueryUtils.fetchEarthquakeData(loadUrl);
         return result;
     }
 

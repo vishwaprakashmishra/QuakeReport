@@ -189,6 +189,13 @@ public final class QueryUtils {
         // Create URL object
         URL url = createURL(requestUrl);
 
+        // Making the thread sleep for 2 second
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e  ) {
+            e.printStackTrace();
+        }
+
         // Loging message for debugging
         Log.i(LOG_TAG, "in fetchEarthquakeData and EXECUTING ... ");
         // Perform HTTP REQUEST TO THE URL and rceive a JSON response back

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Loader;
@@ -24,6 +25,8 @@ public class EarthquakeActivity extends AppCompatActivity
      * constant value for the earthquake loader ID. We can choose any
      */
     private static final int EARTHQUAKE_LOADER_ID = 1;
+    /** TextView that is displayed when the list is empty */
+    private TextView mEmptyStateTextView;
     /**
      * tag for log message
      */
@@ -52,6 +55,9 @@ public class EarthquakeActivity extends AppCompatActivity
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(mAdapter);
 
+        //
+        mEmptyStateTextView = (TextView) findViewById(R.id.emptyText);
+        earthquakeListView.setEmptyView(mEmptyStateTextView);
         // Set  an item click listener on the ListView, which sends an int
         // to open a website with mor einformation about the selected earthquakes.
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -96,6 +102,8 @@ public class EarthquakeActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
 
+        // Set empty state text to display  "No earthquke found"
+        mEmptyStateTextView.setText(R.string.no_earthquake);
         Log.i(LOG_TAG, "IN onLoadFinished and EXECUTING");
         // Clear the adapter of previous eart
         // hquake data

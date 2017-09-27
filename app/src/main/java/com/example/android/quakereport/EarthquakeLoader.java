@@ -2,7 +2,10 @@ package com.example.android.quakereport;
 
 import android.content.Context;
 import android.content.AsyncTaskLoader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -45,9 +48,17 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake> > {
         if ( loadUrl == null ) {
             return null;
         }
+        // creating ConnectivityManager  to check the status of Internet Connectivity
+        ConnectivityManager cm = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Getting Network info
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        // checking both case of network ie is connecting of connected
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         // Perform network request parse the response and return the result
         List<Earthquake> result = null;
-        result = QueryUtils.fetchEarthquakeData(loadUrl);
+        if( isConnected)
+            result = QueryUtils.fetchEarthquakeData(loadUrl);
         return result;
     }
 

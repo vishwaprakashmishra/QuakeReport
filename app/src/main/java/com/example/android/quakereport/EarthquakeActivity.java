@@ -1,7 +1,10 @@
 package com.example.android.quakereport;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -59,7 +62,8 @@ public class EarthquakeActivity extends AppCompatActivity
         earthquakeListView.setAdapter(mAdapter);
         // Progress bar initialization
         loadingSpinnerView = (ProgressBar) findViewById(R.id.loading_spinner);
-        //
+        // Empty state textView if there is no data to show
+
         mEmptyStateTextView = (TextView) findViewById(R.id.emptyText);
         earthquakeListView.setEmptyView(mEmptyStateTextView);
         // Set  an item click listener on the ListView, which sends an int
@@ -86,6 +90,7 @@ public class EarthquakeActivity extends AppCompatActivity
         });
         // Get a reference to the LoaderManager, in order to interact
         LoaderManager loaderManager = getLoaderManager();
+        // Initialize the loader
         loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
     }
 
@@ -100,6 +105,16 @@ public class EarthquakeActivity extends AppCompatActivity
     public Loader<List<Earthquake> > onCreateLoader(int i, Bundle bundle) {
         // Create a new loader for the given URL
         Log.i(LOG_TAG, "in onCreateLoader");
+        // creating ConnectivityManager  to check the status of Internet Connectivity
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Getting Network info
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        // checking both case of network ie is connecting of connected
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if ( !isConnected ) {
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
+        }
         return new EarthquakeLoader(this, USGS_REQUEST_URL);
     }
 
@@ -110,13 +125,22 @@ public class EarthquakeActivity extends AppCompatActivity
         Log.i(LOG_TAG, "IN onLoadFinished and EXECUTING");
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
+        // creating ConnectivityManager  to check the status of Internet Connectivity
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Getting Network info
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        // checking both case of network ie is connecting of connected
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
         // If there is a valid list of {@link Earthquake}s , then add them to the adapters.
         // data set. This will trigger the ListView to update.
-
         if ( earthquakes != null && !earthquakes.isEmpty()) {
             mAdapter.addAll(earthquakes );
-        } else { // else displaying the message R.string.no_earthquake
+        } else if (!isConnected) {
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
+
+        } else  { // else displaying the message R.string.no_earthquake
             mEmptyStateTextView.setText(R.string.no_earthquake);
         }
     }

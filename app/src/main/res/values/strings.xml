@@ -7,4 +7,5 @@
     <string name="near_the">Near the</string>
     <!-- Default text no displaying no text -->
     <string name="no_earthquake">No earthquakes found.</string>
+    <string name="no_internet_connection">No Internet connection</string>
 </resources>

@@ -1,6 +1,9 @@
 package com.example.android.quakereport;
 
+import android.content.Context;
 import android.media.tv.TvContract;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -19,8 +22,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.id.input;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static com.example.android.quakereport.EarthquakeActivity.LOG_TAG;
 
 /**

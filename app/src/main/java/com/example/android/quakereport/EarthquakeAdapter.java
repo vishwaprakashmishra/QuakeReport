@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.graphics.drawable.GradientDrawable;
 import android.icu.text.DecimalFormat;
 import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         super(context, 0, quake);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -55,7 +58,6 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
         // get the appropriate background color based on the current earthquake magnitude
         int magnitudeColor = getMagnitudeColor(currentQuake.getEarthquakeMagnitude());
-
         // set the color on the magnitude circle
         magnitudeCircle.setColor(magnitudeColor);
         // Format the magnitude to show 1 decimal place
@@ -151,6 +153,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     /**
      * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private String formatDate(Date dateObject) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
         return dateFormat.format(dateObject);
@@ -159,11 +162,13 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     /**
      * Return the formatted date string (i.e. "4:30 PM") from a Date object.
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private String formatTime(Date dateObject) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
         return timeFormat.format(dateObject);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private String formatMagnitude(double magnitude) {
         DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
         return magnitudeFormat.format(magnitude);

@@ -62,8 +62,8 @@ public class EarthquakeActivity extends AppCompatActivity
         earthquakeListView.setAdapter(mAdapter);
         // Progress bar initialization
         loadingSpinnerView = (ProgressBar) findViewById(R.id.loading_spinner);
-        // Empty state textView if there is no data to show
 
+        // Empty state textView if there is no data to show
         mEmptyStateTextView = (TextView) findViewById(R.id.emptyText);
         earthquakeListView.setEmptyView(mEmptyStateTextView);
         // Set  an item click listener on the ListView, which sends an int
@@ -107,7 +107,6 @@ public class EarthquakeActivity extends AppCompatActivity
         Log.i(LOG_TAG, "in onCreateLoader");
         // creating ConnectivityManager  to check the status of Internet Connectivity
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
-
         // Getting Network info
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         // checking both case of network ie is connecting of connected

@@ -2,15 +2,12 @@ package com.example.android.quakereport;
 
 import android.content.Context;
 import android.content.AsyncTaskLoader;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.util.List;
 
 /*
- * Created by vishwa on 8/18/17.
+ * Created by vishwa prakash mishra on 8/18/17.
  */
 
 /**
@@ -30,7 +27,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake> > {
      * @param context of the activity
      * @param url data to download from
      */
-    public EarthquakeLoader(Context context, String url) {
+    EarthquakeLoader(Context context, String url) {
         super(context);
         loadUrl = url ;
     }
@@ -48,17 +45,15 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake> > {
         if ( loadUrl == null ) {
             return null;
         }
-        // creating ConnectivityManager  to check the status of Internet Connectivity
-        ConnectivityManager cm = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        // Getting Network info
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        // checking both case of network ie is connecting of connected
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        // Perform network request parse the response and return the result
         List<Earthquake> result = null;
-        if( isConnected)
+        try{
             result = QueryUtils.fetchEarthquakeData(loadUrl);
+        } catch (IllegalStateException e ) {
+            Log.e(LOG_TAG,e.toString());
+            Log.i(LOG_TAG,
+                    "There is no internet connection");
+        }
         return result;
     }
 
